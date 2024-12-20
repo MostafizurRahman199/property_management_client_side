@@ -1,0 +1,5 @@
+color theme #A91D3A #151515
+
+shadow-[#A91D3A]
+
+use tailwind responsive design and in Action have delete button
