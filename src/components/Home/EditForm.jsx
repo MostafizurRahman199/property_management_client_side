@@ -1,26 +1,32 @@
-import { useState } from "react";
-import { saveToLocalStorage } from "../../utils/localStorage";
-import Swal from "sweetalert2";
-import { usePropertyContext } from "../../Auth/StateContext";
-import { useTheme } from "../../Auth/ThemeContext";
-import { useDarkMode } from "../../Auth/DarkModeContext";
 
-const AddPropertyForm = ({  closeModal }) => {
-    
-    const {properties, setProperties} = usePropertyContext();
-    const { darkMode, setDarkMode } = useDarkMode();
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+import { useDarkMode } from '../../Auth/DarkModeContext';
+
+const EditForm = ({ selectedProperty, handleEditSave, modalClose }) => {
+  const { darkMode } = useDarkMode();
+
+  if (!selectedProperty) {
+    return <p className="text-center text-gray-500">No property selected.</p>;
+  }
 
   const [formData, setFormData] = useState({
-    name: "",
-    type: "",
-    status: "Available",
-    date: "",
-    price: "",
-    location: "",
-    size: "",
-    description: "",
-    imageURL: "",
-    features: [],
+    name: selectedProperty?.name || "",
+    type: selectedProperty?.type || "",
+    status: selectedProperty?.status || "Available",
+    date: selectedProperty?.date || "",
+    price: selectedProperty?.price || "",
+    location: selectedProperty?.location || "",
+    size: selectedProperty?.size || "",
+    description: selectedProperty?.description || "",
+    imageURL: selectedProperty?.imageURL || "",
+    features: selectedProperty?.features || [],
   });
 
   const handleChange = (e) => {
@@ -28,100 +34,50 @@ const AddPropertyForm = ({  closeModal }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-
-
-  const validateForm = () => {
-    if (
-      !formData.name ||
-      !formData.type ||
-      !formData.date ||
-      !formData.price ||
-      !formData.location
-    ) {
-      Swal.fire({
-        icon: "warning",
-        title: "Oops...",
-        text: "All required fields must be filled out!",
-      });
-      return false;
-    }
-
-    if (Number(formData.price) <= 0) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Price",
-        text: "Price must be a positive number!",
-      });
-      return false;
-    }
-
-    if (!/^https?:\/\/.+\..+$/.test(formData.imageURL) && formData.imageURL) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid URL",
-        text: "Please enter a valid Image URL!",
-      });
-      return false;
-    }
-
-    return true;
+  const handleFeatureChange = (e) => {
+    const { value, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      features: checked
+        ? [...prev.features, value]
+        : prev.features.filter((feature) => feature !== value),
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!validateForm()) {
-      return;
-    }
-
-    const property = { ...formData, id: Date.now() };
-    saveToLocalStorage(property);
-    setProperties((prev) => [...prev, property]);
-  
-
-    setFormData({
-      name: "",
-      type: "",
-      status: "Available",
-      date: "",
-      price: "",
-      location: "",
-      size: "",
-      description: "",
-      imageURL: "",
-      features: [],
-    });
-
-    Swal.fire({
-      icon: "success",
-      title: "Property Added!",
-      text: "Your property has been successfully added!",
-    });
+    handleEditSave(formData);
   };
 
   return (
-    <form className=" p-4 mb-6" onSubmit={handleSubmit}>
+    <form 
+      onSubmit={handleSubmit} 
+      className={`p-6`}
+    >
+      <h2 className="text-3xl font-bold mb-6 text-center text-purple-600">Update Property</h2>
+
       {/* Name */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Name</label>
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Enter property name"
           required
         />
       </div>
 
       {/* Type */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Type</label>
         <select
           name="type"
           value={formData.type}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           required
         >
           <option value="">Select Type</option>
@@ -132,13 +88,13 @@ const AddPropertyForm = ({  closeModal }) => {
       </div>
 
       {/* Status */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Status</label>
         <select
           name="status"
           value={formData.status}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           required
         >
           <option value="Available">Available</option>
@@ -149,74 +105,74 @@ const AddPropertyForm = ({  closeModal }) => {
       </div>
 
       {/* Date */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Date</label>
         <input
           type="date"
           name="date"
           value={formData.date}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           required
         />
       </div>
 
       {/* Price */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Price</label>
         <input
           type="number"
           name="price"
           value={formData.price}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Enter price"
           required
         />
       </div>
 
       {/* Location */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Location</label>
         <input
           type="text"
           name="location"
           value={formData.location}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Enter location"
           required
         />
       </div>
 
       {/* Size */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Size</label>
         <input
           type="text"
           name="size"
           value={formData.size}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Enter size (e.g., sqft, rooms)"
         />
       </div>
 
       {/* Image URL */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Image URL</label>
         <input
           type="url"
           name="imageURL"
           value={formData.imageURL}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Enter image URL"
         />
       </div>
 
       {/* Features */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Features</label>
         <div className="space-y-2">
           {["Parking", "Balcony", "Pool", "Garden"].map((feature) => (
@@ -226,50 +182,39 @@ const AddPropertyForm = ({  closeModal }) => {
                 name="features"
                 value={feature}
                 checked={formData.features.includes(feature)}
-                onChange={(e) => {
-                  const { value, checked } = e.target;
-                  setFormData((prev) => ({
-                    ...prev,
-                    features: checked
-                      ? [...prev.features, value]
-                      : prev.features.filter((f) => f !== value),
-                  }));
-                }}
+                onChange={handleFeatureChange}
                 className="w-4 h-4 text-purple-600 bg-gray-100 border-gray-300 rounded focus:ring-purple-500"
               />
-              <span className="text-gray-700">{feature}</span>
+              <span>{feature}</span>
             </label>
           ))}
         </div>
       </div>
 
       {/* Description */}
-      <div className="mb-4">
+      <div className="mb-6">
         <label className="block text-sm font-bold mb-2">Description</label>
         <textarea
           name="description"
           value={formData.description}
           onChange={handleChange}
-          className="text-black w-full p-2 border rounded"
+          className="w-full p-3 border rounded text-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
           placeholder="Enter a detailed description"
         />
       </div>
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        onClick={closeModal}
-        className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 rounded hover:bg-blue-600"
-      >
-        Add Property
-      </button>
-
-     
-
-      <div className="modal-action ">
+      {/* Submit and Cancel Buttons */}
+      <div className="flex gap-4">
         <button
-          onClick={closeModal}
-          className="w-full bg-gradient-to-r from-red-500 to-pink-500 text-white py-2 rounded hover:bg-blue-600"
+          type="submit"
+          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-medium hover:opacity-90 transition duration-200"
+        >
+          Save Changes
+        </button>
+        <button
+          onClick={modalClose}
+          type="button"
+          className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-medium hover:opacity-90 transition duration-200"
         >
           Cancel
         </button>
@@ -278,4 +223,4 @@ const AddPropertyForm = ({  closeModal }) => {
   );
 };
 
-export default AddPropertyForm;
+export default EditForm;

@@ -9,6 +9,9 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { PropertyProvider } from './Auth/StateContext.jsx'
+import { ThemeProvider } from './Auth/ThemeContext.jsx'
+import { DarkModeProvider } from './Auth/DarkModeContext.jsx'
 
 const queryClient = new QueryClient()
 
@@ -16,7 +19,13 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
     <AuthProvider>
+      <PropertyProvider>
+      <DarkModeProvider>
+
+
       <RouterProvider router={router} />
+      </DarkModeProvider>
+      </PropertyProvider>
     </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
