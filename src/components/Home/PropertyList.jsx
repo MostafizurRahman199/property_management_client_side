@@ -275,7 +275,7 @@ const PropertyList = () => {
         darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
       }`}
     >
-      <h2 className="text-3xl font-bold mb-6 text-center text-purple-600">
+      <h2 className={`text-4xl font-bold mb-6 text-center ${darkMode == true ?  "text-white" : "text-purple-500"}`}>
         Property List
       </h2>
 

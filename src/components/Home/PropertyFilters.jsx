@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDarkMode } from "../../Auth/DarkModeContext";
 
 const PropertyFilters = ({ properties, setProperties }) => {
   const [search, setSearch] = useState("");
@@ -6,6 +7,7 @@ const PropertyFilters = ({ properties, setProperties }) => {
   const [typeFilter, setTypeFilter] = useState("");
   const [featureFilter, setFeatureFilter] = useState([]);
   const [statusFilter, setStatusFilter] = useState("");
+  const { darkMode, setDarkMode } = useDarkMode();
 
   const features = ["Parking", "Balcony", "Pool", "Garden"];
 
@@ -55,7 +57,7 @@ const PropertyFilters = ({ properties, setProperties }) => {
 
   return (
     <div className="mb-6">
-      <h3 className="text-xl font-bold mb-4 text-purple-600">Filters & Search</h3>
+      <h3 className={`text-xl font-bold mb-6 flex items-center gap-2 ${darkMode == true ?  "text-white" : "text-purple-500"}`}>Filters & Search</h3>
 
       <div className="flex flex-wrap gap-4 mb-4">
         {/* Search */}
