@@ -6,6 +6,7 @@ import PropertyList from "./PropertyList";
 import { usePropertyContext } from "../../Auth/StateContext";
 import { useTheme } from "../../Auth/ThemeContext";
 import { useDarkMode } from "../../Auth/DarkModeContext";
+import Statistics from "./Statistics";
 
 const Home = () => {
   // const [properties, setProperties] = useState([]);
@@ -28,6 +29,7 @@ const Home = () => {
       <h1 className="text-3xl font-bold mb-6 text-center">Property Management Dashboard</h1>
 
       <DashboardSummary properties={properties} />
+      <Statistics></Statistics>
 
       {/* Add Property Button */}
       <button
@@ -52,7 +54,7 @@ const Home = () => {
       </dialog>
       </div>
 
-      <Filter  />
+   
       <PropertyList  />
     </div>
   );

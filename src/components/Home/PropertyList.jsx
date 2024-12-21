@@ -210,7 +210,7 @@ const PropertyList = () => {
     const storedProperties = getPropertiesFromLocalStorage();
     setProperties(storedProperties);
     setFilteredProperties(storedProperties);
-  }, [setProperties]);
+  }, [setProperties, properties.length]);
 
   // Handle Delete
   const handleDelete = (id) => {
@@ -343,7 +343,7 @@ const PropertyList = () => {
                       <FaEye className="text-xl text-[#aa25a1]" />
                     </button>
                     <button
-                      className="btn btn-circle text-[#aa25a1]"
+                      className="btn btn-circle text-[#1b3082]"
                       onClick={() => handleStatusChange(property.id, property)}
                     >
                       Rent
