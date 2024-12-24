@@ -7,7 +7,7 @@ import { Tooltip, Button } from "@material-tailwind/react";
 
 
 import DarkModeToggle from "../components/Home/DarkModeToggle";
-import gamerLogo from "../assets/gamer3.png";
+import dashboardIcons from "../../public/dashboard.png";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 
 import "react-tooltip/dist/react-tooltip.css";
@@ -112,7 +112,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center space-x-1">
               <img
                 className="block md:hidden lg:block h-10 w-auto sm:h-10"
-                src={gamerLogo}
+                src={dashboardIcons}
                 alt="Logo"
               />
               <span className="font_header text-3xl sm:text-3xl md:text-xl lg:text-3xl text-md font-bold bg-gradient-to-r from-[#e41f68] to-[#151515] bg-clip-text text-transparent truncate">

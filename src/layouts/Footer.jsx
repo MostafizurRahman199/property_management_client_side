@@ -1,11 +1,11 @@
 import React from 'react'
 import { FaGithub, FaLinkedin, FaTwitter, FaHeart, FaEnvelope, FaMapMarkerAlt, FaPhone } from 'react-icons/fa'
 
-import gamerLogo from "../assets/gamer3.png"
+import dashboardIcons from "../../public/dashboard.png";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-gradient-to-r from-[#A91D3A] to-[#151515]">
+    <footer className="relative bg-gradient-to-r from-[#e21f6b] to-[#9f26ac]">
 
   
 
@@ -17,15 +17,15 @@ const Footer = () => {
           <div className='flex justify-start items-center'>
           <img
                 className="block md:hidden lg:block w-24"
-                src={gamerLogo}
+                src={dashboardIcons}
                 alt="Logo"
               />
             <h3 className="font_header text-2xl font-bold bg-clip-text text-transparent bg-white">
-              Job Seeker
+              PM Dashboard
             </h3>
           </div>
             <p className="text-sm leading-relaxed">
-              This place is for Gamer Find authentic review about have and can make review and shortlisted his favorite one.
+             Manage your Property easy and simple way.
             </p>
 
           </div>
