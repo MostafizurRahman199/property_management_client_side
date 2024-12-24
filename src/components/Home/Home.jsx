@@ -7,6 +7,7 @@ import { usePropertyContext } from "../../Auth/StateContext";
 import { useTheme } from "../../Auth/ThemeContext";
 import { useDarkMode } from "../../Auth/DarkModeContext";
 import Statistics from "./Statistics";
+import Welcome from "./Welcome";
 
 const Home = () => {
   // const [properties, setProperties] = useState([]);
@@ -23,7 +24,7 @@ const Home = () => {
       <h1 className={`text-3xl md:text-4xl font-bold mb-6 text-center ${darkMode == true ?  "text-white" : "text-purple-500"}`}>
         Dashboard
       </h1>
-
+    <Welcome></Welcome>
       <DashboardSummary />
       <Statistics></Statistics>
 

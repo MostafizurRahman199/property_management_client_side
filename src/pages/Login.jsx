@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useFirebaseAuth } from '../Auth/AuthProvider';
+// import { useFirebaseAuth } from '../Auth/AuthProvider';
 
 import { FcGoogle } from 'react-icons/fc'; 
 import { toast } from 'react-toastify';
@@ -10,20 +10,51 @@ import { useEffect } from 'react';
 import loginImage    from "../assets/loginImage.png"
 import Swal from 'sweetalert2';
 import { sweetAlert } from '../utils/sweetAlert';
+import loginAnimation from "../../public/login.json";
+import Lottie from 'lottie-react';
+import { useFirebaseAuth } from '../Auth/AuthProvider';
+
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser, googleSignIn } = useFirebaseAuth();
+
+
+
+
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || '/';
+
+    // // Access the "from" value safely
+    const from = location.state?.from || "/";
+    
+    // console.log(location);
+    // console.log(from);
+
+
+
+  const lottieRef = useRef(null);
 
   useEffect(() => {
     Aos.init({ duration: 1000 });
   }, []);
 
+
+  useEffect(() => {
+    
+    if (lottieRef.current) {
+      lottieRef.current.setSpeed(0.5); // Adjust speed (e.g., 0.5 for half speed)
+    }
+  }, []);
+
+
+  const style = {
+    height: 400,
+  };
+  
 
 
 
@@ -59,10 +90,30 @@ const Login = () => {
     }
   }
 
+
+// _________________________________jwt token validation
+
+
+      
+    
+    
+
+
+
+  
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await loginUser(email, password);
+     
+      const result =  await loginUser(email, password);
+     
+
+      // console.log(result.email)
+   
+
+
+
       Swal.fire({
         position: "top-center",
         icon: "success",
@@ -79,7 +130,9 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
+      const result = await googleSignIn();
+      // console.log(result.email);
+ 
       Swal.fire({
         position: "top-center",
         icon: "success",
@@ -105,21 +158,21 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen md:w-10/12 mx-auto flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
-      <div className=" w-full flex flex-col md:flex md:flex-row justify-center items-center gap-4  space-y-8 sm:shadow-custom p-8  rounded-2xl bg-[#000000]" data-aos="zoom-in">
+    <div className="md:w-10/12 mx-auto flex items-center justify-center  py-12 px-4 sm:px-6 lg:px-8">
+      <div className=" w-full flex flex-col md:flex md:flex-row justify-center items-center gap-4  space-y-4 sm:shadow-2xl p-8  rounded-2xl bg-gray-100" data-aos="zoom-in">
        <div className='flex-1'>
        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-[#A91D3A]">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-black">
             Login to your account
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleLogin}>
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md shadow-sm space-y-2">
             <div>
               <input
                 type="email"
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-[#A91D3A] focus:border-[#A91D3A] focus:z-10 sm:text-sm"
+                className="appearance-none  relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-3xl focus:outline-none focus:ring-black focus:border-black focus:z-10 sm:text-sm"
                 placeholder="Email address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -129,7 +182,7 @@ const Login = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-[#A91D3A] focus:border-[#A91D3A] sm:text-sm pr-10"
+                className="appearance-none  relative block w-full px-3 py-4 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-3xl focus:outline-none focus:ring-black focus:border-black sm:text-sm pr-10"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -152,7 +205,7 @@ const Login = () => {
             <div className="text-sm">
               <button
                 onClick={handleForgotPassword}
-                className="font-medium text-[#A91D3A] hover:text-white"
+                className="font-medium text-black hover:text-[#006494]"
               >
                 Forgot your password?
               </button>
@@ -162,7 +215,7 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center  border border-transparent text-sm  bg-[#A91D3A] hover:bg-[#9c1631] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#A91D3A] px-8 py-3 rounded-md text-white font-bold transition-transform hover:scale-105 shadow-2xl"
+              className="group relative w-full flex justify-center  border border-transparent text-sm  bg-black hover:bg-[#006494] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black px-8 py-3 rounded-3xl text-white font-bold transition-transform hover:scale-105 shadow-2xl"
             >
               Login
             </button>
@@ -178,7 +231,7 @@ const Login = () => {
         <div className="mt-6">
           <button
             onClick={handleGoogleSignIn}
-            className="w-full flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+            className="w-full flex items-center justify-center px-4 py-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
           >
             <FcGoogle className="h-5 w-5 mr-2" />
             Continue with Google
@@ -187,14 +240,17 @@ const Login = () => {
 
         <p className="mt-2 text-center text-sm text-gray-600">
           Don't have an account?{' '}
-          <Link to="/register" className="font-medium text-[#A91D3A] hover:text-white">
+          <Link to="/register" className="font-medium text-black hover:text-white">
             Register here
           </Link>
         </p>
        </div>
 
        <div className='flex-1'>
-        <img src={loginImage} alt="" />
+        <Lottie  lottieRef={lottieRef}
+      animationData={loginAnimation}
+      style={style}
+      loop={true} />
       </div>
       </div>
 

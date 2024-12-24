@@ -45,8 +45,8 @@ const UpdateProfile = () => {
 
     return (
         <div className="min-h-screen  pt-20 px-4 flex justify-center items-start">
-        <div className='bg-[#151515]  p-2 sm:p-4 rounded-2xl shadow-2xl' data-aos='zoom-in-left'>
-        <div className="max-w-4xl w-full  shadow-2xl shadow-[#A91D3A]  rounded-2xl  p-8 flex items-center justify-center gap-2" data-aos='zoom-in-left'>
+        <div className='  p-2 sm:p-4 rounded-2xl shadow-2xl' data-aos='zoom-in-left'>
+        <div className="max-w-4xl w-full  shadow-2xl shadow-[#9c27b0]  rounded-2xl  p-8 flex items-center justify-center gap-2" data-aos='zoom-in-left'>
                 <div className="flex-1">
                     <h2 className="font_header text-2xl sm:text-4xl font-bold mb-4 text-white ">Update Profile</h2>
                     <form onSubmit={handleUpdate}>
@@ -56,7 +56,7 @@ const UpdateProfile = () => {
                                 type="text"
                                 value={formData.displayName}
                                 onChange={(e) => setFormData({...formData, displayName: e.target.value})}
-                                className="text-black w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A91D3A]"
+                                className="text-black w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#9c27b0]"
                             />
                         </div>
                         <div className="mb-4">
@@ -65,20 +65,18 @@ const UpdateProfile = () => {
                                 type="url"
                                 value={formData.photoURL}
                                 onChange={(e) => setFormData({...formData, photoURL: e.target.value})}
-                                className="text-black w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#A91D3A]"
+                                className="text-black w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-[#9c27b0]"
                             />
                         </div>
                         <button
                             type="submit"
-                            className="bg-[#A91D3A] hover:bg-[#9c1631] px-4 py-2 sm:px-8 sm:py-3 rounded-3xl text-white sm:font-semibold transition-transform hover:scale-105 shadow-2xl"
+                            className="bg-[#9c27b0]  px-4 py-2 sm:px-8 sm:py-3 rounded-3xl text-white sm:font-semibold transition-transform hover:scale-105 shadow-2xl"
                         >
                             Update Information
                         </button>
                     </form>
                 </div>
-                <div className="flex-1 hidden md:block">
-                    <img src={updateProfileBg} alt="Profile Update" className="w-full h-full object-cover rounded-r-lg" />
-                </div>
+                
             </div>
         </div>
         </div>

@@ -37,7 +37,7 @@ const Profile = () => {
        
             <div className="md:pt-2 md:px-4 min-h-screen w-full flex flex-col justify-center items-center gap-2 ">
               
-              <div className='bg-[#151515] w-full sm:w-8/12 shadow-2xl shadow-[#A91D3A] sm:rounded-2xl' data-aos='zoom-in'>
+              <div className=' w-full sm:w-8/12 shadow-2xl shadow-[#9c27b0] sm:rounded-2xl' data-aos='zoom-in'>
               <div className='flex flex-col items-center justify-center gap-2 px-4   md:px-6 py-4' >
                 <h1 className="font_header text-2xl sm:text-3xl md:text-5xl font-bold text-white text-center ">Welcome To Your Profile<br /> 
                 </h1>
@@ -55,7 +55,7 @@ const Profile = () => {
                           </div>
 
 
-                        <div className="w-fit rounded-full p-1 bg-gradient-to-r from-[#151515] to-[#A91D3A]" data-aos="zoom-in">
+                        <div className="w-fit rounded-full p-1 bg-gradient-to-r from-[#151515] to-[#9c27b0]" data-aos="zoom-in">
                             <img
                                 src={getProfileImage(user)}
                                 alt="Profile"
@@ -67,12 +67,12 @@ const Profile = () => {
                             />
                         </div>
 
-                        <h1 className="text-2xl font-bold mb-2 text-center text-[#A91D3A] my-8">{user?.displayName}</h1>
+                        <h1 className="text-2xl font-bold mb-2 text-center text-[#9c27b0] my-8">{user?.displayName}</h1>
                         <p className="text-gray-600 mb-4">{user?.email}</p>
 
                         <button
                             onClick={handleUpdateClick}
-                            className="bg-[#A91D3A] hover:bg-[#9c1631] px-8 py-3 rounded-3xl text-white font-semibold transition-transform hover:scale-105 shadow-2xl"
+                            className="bg-[#9c27b0]  px-8 py-3 rounded-3xl text-white font-semibold transition-transform hover:scale-105 shadow-2xl"
                         >
                             Update Profile
                         </button>
